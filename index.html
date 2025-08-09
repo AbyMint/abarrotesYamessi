@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abarrotes Don Pepe - Frescura y Calidad</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Swiper.js para el carrusel de ofertas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para el contador del carrito */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            height: 20px;
+            width: 20px;
+            font-size: 12px;
+        }
+        /* Asegura que las flechas del carrusel sean visibles */
+        .swiper-button-next, .swiper-button-prev {
+            color: #10B981; /* Un verde esmeralda que combina */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- ========== ENCABEZADO ========== -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold text-green-600">
+                Abarrotes Don Pepe
+            </a>
+            <!-- Menú de Navegación (para escritorio) -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-green-600 transition duration-300">Inicio</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 transition duration-300">Productos</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 transition duration-300">Ofertas</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 transition duration-300">Contacto</a>
+            </div>
+            <!-- Icono de Carrito -->
+            <div class="relative">
+                <a href="#" class="text-gray-600 hover:text-green-600 transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span class="cart-badge bg-red-500 text-white rounded-full flex items-center justify-center">0</span>
+                </a>
+            </div>
+             <!-- Menú Hamburguesa (para móvil) -->
+            <div class="md:hidden">
+                <button class="text-gray-600 hover:text-green-600 focus:outline-none">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== SECCIÓN PRINCIPAL (HERO) ========== -->
+    <main class="container mx-auto px-6 py-16 text-center">
+        <div class="bg-green-100/50 rounded-lg p-8 md:p-16">
+            <h1 class="text-4xl md:text-6xl font-bold text-green-800 mb-4">Productos frescos, directo a tu puerta.</h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8">La mejor calidad en Culiacán, a solo un clic de distancia.</p>
+            <a href="#" class="bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition duration-300 transform hover:scale-105 inline-block">
+                Ver Productos
+            </a>
+        </div>
+    </main>
+
+    <!-- ========== CARRUSEL DE OFERTAS ========== -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-10">Ofertas de la Semana</h2>
+            <!-- Contenedor de Swiper -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <!-- Producto 1 -->
+                    <div class="swiper-slide border rounded-lg p-4 text-center shadow-sm">
+                        <img src="https://placehold.co/400x300/EBF8F2/333333?text=Tomates" alt="Tomates" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/400x300/EBF8F2/333333?text=Imagen+no+disponible';">
+                        <h3 class="font-semibold text-lg">Tomate Saladet</h3>
+                        <p class="text-gray-500"><span class="line-through">$25.00/kg</span> <span class="text-red-500 font-bold text-lg">$19.90/kg</span></p>
+                    </div>
+                    <!-- Producto 2 -->
+                    <div class="swiper-slide border rounded-lg p-4 text-center shadow-sm">
+                        <img src="https://placehold.co/400x300/FEFCE8/333333?text=Aguacates" alt="Aguacates" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/400x300/EBF8F2/333333?text=Imagen+no+disponible';">
+                        <h3 class="font-semibold text-lg">Aguacate Hass</h3>
+                        <p class="text-gray-500"><span class="line-through">$80.00/kg</span> <span class="text-red-500 font-bold text-lg">$65.50/kg</span></p>
+                    </div>
+                    <!-- Producto 3 -->
+                    <div class="swiper-slide border rounded-lg p-4 text-center shadow-sm">
+                        <img src="https://placehold.co/400x300/EFF6FF/333333?text=Leche" alt="Leche" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/400x300/EBF8F2/333333?text=Imagen+no+disponible';">
+                        <h3 class="font-semibold text-lg">Leche Entera (1L)</h3>
+                        <p class="text-gray-500"><span class="line-through">$28.00</span> <span class="text-red-500 font-bold text-lg">$24.00</span></p>
+                    </div>
+                    <!-- Producto 4 -->
+                    <div class="swiper-slide border rounded-lg p-4 text-center shadow-sm">
+                        <img src="https://placehold.co/400x300/FFF7ED/333333?text=Pan+de+Caja" alt="Pan de Caja" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/400x300/EBF8F2/333333?text=Imagen+no+disponible';">
+                        <h3 class="font-semibold text-lg">Pan de Caja Blanco</h3>
+                        <p class="text-gray-500"><span class="line-through">$45.00</span> <span class="text-red-500 font-bold text-lg">$38.00</span></p>
+                    </div>
+                     <!-- Producto 5 -->
+                    <div class="swiper-slide border rounded-lg p-4 text-center shadow-sm">
+                        <img src="https://placehold.co/400x300/F3E8FF/333333?text=Manzanas" alt="Manzanas" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/400x300/EBF8F2/333333?text=Imagen+no+disponible';">
+                        <h3 class="font-semibold text-lg">Manzana Golden</h3>
+                        <p class="text-gray-500"><span class="line-through">$55.00/kg</span> <span class="text-red-500 font-bold text-lg">$48.90/kg</span></p>
+                    </div>
+                </div>
+                <!-- Flechas de Navegación -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN "POR QUÉ ELEGIRNOS" ========== -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-10">Tu Tienda de Confianza</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <div class="bg-green-100 h-16 w-16 rounded-full mx-auto flex items-center justify-center mb-4">
+                        <!-- Icono de Hoja -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-2">Frescura Garantizada</h3>
+                    <p class="text-gray-600">Seleccionamos los productos más frescos del día para ti y tu familia.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <div class="bg-blue-100 h-16 w-16 rounded-full mx-auto flex items-center justify-center mb-4">
+                        <!-- Icono de Camión -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 2h8a1 1 0 001-1zM3 11h10" /></svg>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-2">Entrega Rápida</h3>
+                    <p class="text-gray-600">Recibe tu mandado en la puerta de tu casa el mismo día.</p>
+                </div>
+                <div class="bg-yellow-100 p-8 rounded-lg shadow-sm">
+                    <div class="bg-orange-100 h-16 w-16 rounded-full mx-auto flex items-center justify-center mb-4">
+                         <!-- Icono de Canasta -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-2">Gran Variedad</h3>
+                    <p class="text-gray-600">Todo lo que necesitas, desde frutas y verduras hasta artículos de limpieza.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PIE DE PÁGINA ========== -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Abarrotes Don Pepe. Todos los derechos reservados.</p>
+            <p class="text-gray-400 mt-2">Hecho con ❤️ en Culiacán, Sinaloa.</p>
+        </div>
+    </footer>
+
+
+    <!-- ========== SCRIPT DE JAVASCRIPT ========== -->
+    <script>
+        // Inicialización de Swiper.js para el carrusel de ofertas
+        const swiper = new Swiper('.swiper-container', {
+            // Parámetros opcionales
+            loop: true, // Para que el carrusel sea infinito
+            slidesPerView: 1, // Vistas por defecto (móvil)
+            spaceBetween: 16,
+            
+            // Navegación con flechas
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // Puntos de quiebre para diseño responsivo
+            breakpoints: {
+                // Cuando el ancho de la ventana es >= 640px
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                // Cuando el ancho de la ventana es >= 768px
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+                // Cuando el ancho de la ventana es >= 1024px
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 40,
+                },
+            }
+        });
+    </script>
+
+</body>
+</html>
