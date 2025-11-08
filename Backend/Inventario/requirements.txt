@@ -1,0 +1,7 @@
+fastapi==0.95.2
+uvicorn[standard]==0.22.0
+jinja2==3.1.2
+sqlalchemy==1.4.52
+databases==0.6.0
+aiofiles==23.1.0
+python-multipart==0.0.6

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Inventory Movements</h2>
+  <div>
+    <a href="/movements/add" class="btn btn-primary">Add movement</a>
+  </div>
+</div>
+
+<form class="row g-2 mb-3" method="get" action="/movements">
+  <div class="col-md-4">
+    <select name="product_id" class="form-select">
+      <option value="">All products</option>
+      {% for p in products %}
+      <option value="{{ p.id }}">{{ p.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <input type="date" name="from_date" class="form-control" placeholder="From">
+  </div>
+  <div class="col-md-3">
+    <input type="date" name="to_date" class="form-control" placeholder="To">
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-outline-secondary">Filter</button>
+  </div>
+</form>
+
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Product</th>
+      <th>Type</th>
+      <th>Quantity</th>
+      <th>Supplier</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in movements %}
+    <tr>
+      <td>{{ m.date.strftime('%Y-%m-%d %H:%M') }}</td>
+      <td>{{ m.product.name }}</td>
+      <td>{{ m.type }}</td>
+      <td>{{ m.quantity }}</td>
+      <td>{{ m.supplier.name if m.supplier else '' }}</td>
+      <td>{{ m.notes }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6">No movements.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

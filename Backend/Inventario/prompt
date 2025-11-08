@@ -1,0 +1,62 @@
+Build a simple inventory management web app using **FastAPI** with a clean and minimal UI. The app must be accessible from both desktop and phone browsers on the same local network.
+
+**Requirements:**
+
+* Database: SQLite (first version).
+* Use SQLAlchemy or Tortoise ORM for models.
+* Provide full CRUD operations for:
+
+  1. Products
+  2. Suppliers
+  3. Inventory movements (entries, sales, adjustments)
+* Product stock must not be edited directly. Stock must change only through inventory movements.
+* Create REST API endpoints and simple HTML templates using Jinja2 (or FastAPI's template system).
+* UI should be a basic form-style layout, easy to use.
+* Include search and filter in product and movement lists.
+
+**Database schema:**
+
+```
+products(
+  id INTEGER PRIMARY KEY,
+  sku TEXT UNIQUE,
+  name TEXT,
+  category TEXT,
+  subcategory TEXT,
+  cost_price REAL,
+  sale_price REAL,
+  stock INTEGER
+)
+
+suppliers(
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  contact TEXT,
+  phone TEXT,
+  address TEXT
+)
+
+inventory_movements(
+  id INTEGER PRIMARY KEY,
+  product_id INTEGER,
+  type TEXT,           -- "entry", "sale", "adjustment"
+  quantity INTEGER,
+  date TEXT,
+  supplier_id INTEGER,
+  notes TEXT
+)
+```
+
+**Pages needed:**
+
+* Product list with search + edit and delete buttons.
+* Add product form.
+* Supplier list + add supplier form.
+* Inventory movement form (entry or sale).
+* List of inventory movements with filters (by product or date).
+
+**Output format:**
+
+1. Project folder structure
+2. Code for main.py, models, routes, templates
+3. Instructions to run the server and access from a phone on the same WiFi
