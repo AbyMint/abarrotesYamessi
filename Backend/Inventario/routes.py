@@ -202,6 +202,50 @@ def api_list_products():
     return ps
 
 
+@router.get("/api/products/{product_id}", response_model=Product)
+def api_get_product(product_id: int):
+    db = SessionLocal()
+    p = db.query(models.Product).get(product_id)
+    db.close()
+    if not p:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return p
+
+
+@router.put("/api/products/{product_id}", response_model=Product)
+def api_update_product(product_id: int, payload: ProductCreate):
+    db = SessionLocal()
+    p = db.query(models.Product).get(product_id)
+    if not p:
+        db.close()
+        raise HTTPException(status_code=404, detail="Product not found")
+    # Check if SKU is being changed and if it conflicts
+    if payload.sku != p.sku:
+        existing = db.query(models.Product).filter_by(sku=payload.sku).first()
+        if existing:
+            db.close()
+            raise HTTPException(status_code=400, detail="SKU already exists")
+    for key, value in payload.dict().items():
+        setattr(p, key, value)
+    db.commit()
+    db.refresh(p)
+    db.close()
+    return p
+
+
+@router.delete("/api/products/{product_id}")
+def api_delete_product(product_id: int):
+    db = SessionLocal()
+    p = db.query(models.Product).get(product_id)
+    if not p:
+        db.close()
+        raise HTTPException(status_code=404, detail="Product not found")
+    db.delete(p)
+    db.commit()
+    db.close()
+    return {"message": "Product deleted successfully"}
+
+
 @router.post("/api/suppliers", response_model=Supplier)
 def api_create_supplier(payload: SupplierCreate):
     db = SessionLocal()
@@ -211,6 +255,52 @@ def api_create_supplier(payload: SupplierCreate):
     db.refresh(s)
     db.close()
     return s
+
+
+@router.get("/api/suppliers", response_model=List[Supplier])
+def api_list_suppliers():
+    db = SessionLocal()
+    suppliers = db.query(models.Supplier).order_by(models.Supplier.name).all()
+    db.close()
+    return suppliers
+
+
+@router.get("/api/suppliers/{supplier_id}", response_model=Supplier)
+def api_get_supplier(supplier_id: int):
+    db = SessionLocal()
+    s = db.query(models.Supplier).get(supplier_id)
+    db.close()
+    if not s:
+        raise HTTPException(status_code=404, detail="Supplier not found")
+    return s
+
+
+@router.put("/api/suppliers/{supplier_id}", response_model=Supplier)
+def api_update_supplier(supplier_id: int, payload: SupplierCreate):
+    db = SessionLocal()
+    s = db.query(models.Supplier).get(supplier_id)
+    if not s:
+        db.close()
+        raise HTTPException(status_code=404, detail="Supplier not found")
+    for key, value in payload.dict().items():
+        setattr(s, key, value)
+    db.commit()
+    db.refresh(s)
+    db.close()
+    return s
+
+
+@router.delete("/api/suppliers/{supplier_id}")
+def api_delete_supplier(supplier_id: int):
+    db = SessionLocal()
+    s = db.query(models.Supplier).get(supplier_id)
+    if not s:
+        db.close()
+        raise HTTPException(status_code=404, detail="Supplier not found")
+    db.delete(s)
+    db.commit()
+    db.close()
+    return {"message": "Supplier deleted successfully"}
 
 
 @router.post("/api/movements", response_model=Movement)
@@ -237,5 +327,23 @@ def api_create_movement(payload: MovementCreate):
     db.commit()
     db.refresh(mv)
     db.close()
+    return mv
+
+
+@router.get("/api/movements", response_model=List[Movement])
+def api_list_movements():
+    db = SessionLocal()
+    movements = db.query(models.InventoryMovement).order_by(models.InventoryMovement.date.desc()).all()
+    db.close()
+    return movements
+
+
+@router.get("/api/movements/{movement_id}", response_model=Movement)
+def api_get_movement(movement_id: int):
+    db = SessionLocal()
+    mv = db.query(models.InventoryMovement).get(movement_id)
+    db.close()
+    if not mv:
+        raise HTTPException(status_code=404, detail="Movement not found")
     return mv
 
