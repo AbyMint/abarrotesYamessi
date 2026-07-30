@@ -1,54 +1,75 @@
 # Abarrotes Yamessi
 
-Minimal, pragmatic application for managing a small grocery store (inventory, sales, and customers). This repository contains the source code and assets for the Abarrotes Yamessi app.
+Primer hito de una base práctica y ligera para **ventas en línea + inventario + PoS móvil**.
 
-## Features
-- Product and inventory management
-- Sales / receipts
-- Customer records
-- Basic reporting and stock alerts
-- Extensible backend and frontend structure
+## Estado actual del repositorio (auditoría rápida)
 
-## Quick start
-1. Clone the repo:
-    git clone <repo-url>
-2. Install dependencies (example):
-    - Node.js (frontend/backend npm):
-      cd frontend && npm install
-      cd ../backend && npm install
-    - Or Python:
-      pip install -r requirements.txt
-3. Set environment variables (example .env):
-    - DATABASE_URL
-    - SECRET_KEY
-    - PORT
-4. Run:
-    - Backend: npm start (or python app.py)
-    - Frontend: npm start
+- `Backend/Inventario`: ahora es la base activa (FastAPI + Jinja + SQLite).
+- `homepage/`: contenido legado del sitio estático; se conserva por seguridad y referencia, pero ya **no es el flujo recomendado** para este hito.
 
-Adjust commands to the stack used in this repository.
+## Alcance de este hito
 
-## Configuration
-- Use a .env file for environment-specific values.
-- Database migrations: follow the migration tool used in the project (e.g., alembic, prisma, sequelize).
-- Static assets: place images and logos in the assets/ or public/ folder.
+- Estructura inicial separando **Tienda pública** y **Gestión**.
+- Placeholders de módulos: catálogo, PoS y reportes.
+- Inventario funcional (productos, proveedores, movimientos).
+- Base de localización `es` / `en` (español por defecto).
+- Tema de contraste alto por defecto y controles grandes.
+- Contratos tipados para productos, transacciones de inventario, tickets de venta y órdenes.
 
-## Development
-- Follow the code style used in the project; run linters before committing.
-- Run unit and integration tests:
-  npm test
-- Use feature branches and meaningful commit messages.
+## Ejecución local
 
-## Contributing
-1. Fork the repository.
-2. Create a branch: git checkout -b feat/my-feature
-3. Make changes, add tests, run linters.
-4. Open a pull request describing the change.
+```bash
+cd Backend/Inventario
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
 
-## License
-Specify a license (e.g., MIT). Add a LICENSE file to the repository.
+Abrir:
+- Sitio/tienda: `http://localhost:8000/`
+- Gestión: `http://localhost:8000/admin`
+- API docs: `http://localhost:8000/docs`
 
-## Contact
-For issues or support, open an issue on the repository.
+## Arquitectura inicial
 
-GitHub Copilot
+- **Storefront**: `/`, `/catalog`, `/about-contact`, `/policies`
+- **Gestión**: `/admin`, `/products`, `/suppliers`, `/movements`, `/admin/pos`, `/admin/reports`
+- **API base**:
+  - Inventario existente (`/api/products`, `/api/suppliers`, `/api/movements`)
+  - Contratos y flujos iniciales (`/api/contracts/bootstrap`, `/api/sales/tickets`, `/api/orders`)
+
+## Recomendaciones para dispositivos de gama baja
+
+- Mantener servidor en red local cuando sea posible.
+- Evitar imágenes pesadas en catálogo inicial.
+- Preferir formularios simples y tablas paginadas en próximos pasos.
+- Limitar scripts de terceros (este hito elimina dependencias visuales pesadas en la base activa).
+
+## Roadmap por fases
+
+1. **Hito 1 (actual)**: base ligera + estructura módulos + contratos.
+2. **Hito 2**: flujo PoS operativo (carrito, pagos, cierre diario).
+3. **Hito 3**: tienda en línea conectada a stock/reservas y reglas de entrega.
+4. **Hito 4**: reportes clave y exportaciones.
+5. **Hito 5**: hardware (impresora/escáner) y reconocimiento de productos (posterior).
+
+## Open Questions (para el siguiente prompt)
+
+1. ¿Cuáles son las categorías iniciales y los 20 productos prioritarios para precargar?
+2. ¿Qué campos son obligatorios por producto (SKU, código de barras, unidad, costo, precio, impuesto)?
+3. ¿Cuáles son horarios, zonas de entrega/retiro y reglas de cumplimiento de pedidos?
+4. ¿Qué métodos de pago se requieren en el lanzamiento?
+5. ¿Español será el idioma por defecto para todos los usuarios?
+6. ¿Qué reportes son críticos en el mes 1 (ventas diarias, margen, alertas de inventario)?
+
+### Plantilla repetible: “Preguntas para el siguiente prompt”
+
+```md
+## Preguntas para el siguiente prompt
+- Datos de negocio pendientes:
+- Decisiones de flujo PoS pendientes:
+- Reglas de pedidos/entrega pendientes:
+- Prioridades de reportes pendientes:
+- Supuestos a confirmar:
+```

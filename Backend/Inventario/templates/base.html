@@ -1,29 +1,50 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Abarrotes Yamessi - Inventario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>{{ t('brand.name') }}</title>
+    <link rel="stylesheet" href="/static/app.css">
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">Abarrotes Yamessi</a>
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
-            <li class="nav-item"><a class="nav-link" href="/suppliers">Suppliers</a></li>
-            <li class="nav-item"><a class="nav-link" href="/movements">Movements</a></li>
-          </ul>
+  <body class="theme-{{ contrast_mode }}">
+    <header>
+      <div class="container">
+        <a class="site-brand" href="{{ url_with_prefs('/') }}">{{ t('brand.name') }}</a>
+        <div class="nav-row">
+          <nav class="nav-group" aria-label="Storefront">
+            <a class="nav-link {% if request.url.path == '/' %}active{% endif %}" href="{{ url_with_prefs('/') }}">{{ t('nav.storefront') }}</a>
+            <a class="nav-link {% if request.url.path == '/catalog' %}active{% endif %}" href="{{ url_with_prefs('/catalog') }}">{{ t('nav.catalog') }}</a>
+            <a class="nav-link {% if request.url.path == '/about-contact' %}active{% endif %}" href="{{ url_with_prefs('/about-contact') }}">{{ t('nav.about_contact') }}</a>
+            <a class="nav-link {% if request.url.path == '/policies' %}active{% endif %}" href="{{ url_with_prefs('/policies') }}">{{ t('nav.policies') }}</a>
+          </nav>
+          <nav class="nav-group" aria-label="Management">
+            <a class="nav-link {% if request.url.path == '/admin' %}active{% endif %}" href="{{ url_with_prefs('/admin') }}">{{ t('nav.admin_dashboard') }}</a>
+            <a class="nav-link {% if request.url.path.startswith('/products') %}active{% endif %}" href="{{ url_with_prefs('/products') }}">{{ t('nav.inventory') }}</a>
+            <a class="nav-link {% if request.url.path.startswith('/suppliers') %}active{% endif %}" href="{{ url_with_prefs('/suppliers') }}">{{ t('nav.suppliers') }}</a>
+            <a class="nav-link {% if request.url.path.startswith('/movements') %}active{% endif %}" href="{{ url_with_prefs('/movements') }}">{{ t('nav.movements') }}</a>
+            <a class="nav-link {% if request.url.path == '/admin/pos' %}active{% endif %}" href="{{ url_with_prefs('/admin/pos') }}">{{ t('nav.pos') }}</a>
+            <a class="nav-link {% if request.url.path == '/admin/reports' %}active{% endif %}" href="{{ url_with_prefs('/admin/reports') }}">{{ t('nav.reports') }}</a>
+          </nav>
+        </div>
+        <div class="actions" style="padding-bottom:0.75rem;">
+          <span>{{ t('ui.language') }}:</span>
+          <a class="pill-link" href="{{ lang_es_url }}">{{ t('ui.spanish') }}</a>
+          <a class="pill-link" href="{{ lang_en_url }}">{{ t('ui.english') }}</a>
+          <span>{{ t('ui.contrast') }}:</span>
+          <a class="pill-link" href="{{ contrast_high_url }}">{{ t('ui.high') }}</a>
+          <a class="pill-link" href="{{ contrast_standard_url }}">{{ t('ui.standard') }}</a>
         </div>
       </div>
-    </nav>
+    </header>
 
-    <div class="container">
+    <main class="container">
       {% block content %}{% endblock %}
-    </div>
+    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <footer>
+      <div class="container">
+        <small>{{ t('footer.note') }}</small>
+      </div>
+    </footer>
   </body>
 </html>

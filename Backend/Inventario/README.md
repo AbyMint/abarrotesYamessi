@@ -1,22 +1,29 @@
-# Abarrotes Yamessi - Inventario (FastAPI)
+# Abarrotes Yamessi - Base ligera (FastAPI)
 
-Simple inventory management app using FastAPI, Jinja2 templates and SQLite.
+Aplicación base para este hito: tienda pública + gestión de inventario + placeholders de PoS/reportes.
 
-Requirements (install into a venv):
+## Requisitos
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
-Run the app locally (host on all interfaces so you can access from phone):
+## Ejecutar
 
-```
+```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-Then open in a browser on your PC: http://localhost:8000
-From a phone on the same Wi-Fi, find your PC IP (e.g. 192.168.1.10) and open: http://192.168.1.10:8000
+## Rutas principales
 
-Notes:
-- Stock is only changed via inventory movements (entry, sale, adjustment).
-- Database file `inventory.db` will be created in the same folder.
+- Tienda: `/`, `/catalog`, `/about-contact`, `/policies`
+- Gestión: `/admin`, `/products`, `/suppliers`, `/movements`, `/admin/pos`, `/admin/reports`
+- API docs: `/docs`
+
+## Contratos y endpoints iniciales
+
+- `GET /api/contracts/bootstrap`
+- `GET/POST /api/sales/tickets`
+- `GET/POST /api/orders`
+
+Estos endpoints funcionan con servicio en memoria para iniciar captura estructurada sin depender todavía de backend transaccional completo.
