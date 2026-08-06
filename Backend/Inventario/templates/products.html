@@ -1,50 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h2>Products</h2>
-  <div>
-    <a href="/products/add" class="btn btn-primary">Add product</a>
+<section class="section">
+  <div class="actions" style="justify-content:space-between;">
+    <h1 style="margin:0;">{{ t('products.title') }}</h1>
+    <a class="button-primary" href="{{ url_with_prefs('/products/add') }}">{{ t('products.add') }}</a>
   </div>
-</div>
 
-<form class="mb-3" method="get" action="/products">
-  <div class="input-group">
-    <input type="text" class="form-control" name="q" placeholder="Search by name or SKU" value="{{ q }}">
-    <button class="btn btn-outline-secondary" type="submit">Search</button>
-  </div>
-</form>
+  <form method="get" action="/products">
+    <label for="q">{{ t('products.search') }}</label>
+    <div class="actions">
+      <input id="q" type="text" name="q" value="{{ q }}" placeholder="{{ t('products.search') }}">
+      <button type="submit">{{ t('common.search') }}</button>
+    </div>
+  </form>
+</section>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>SKU</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Cost</th>
-      <th>Price</th>
-      <th>Stock</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for p in products %}
-    <tr>
-      <td>{{ p.sku }}</td>
-      <td>{{ p.name }}</td>
-      <td>{{ p.category }}</td>
-      <td>{{ '%.2f'|format(p.cost_price) }}</td>
-      <td>{{ '%.2f'|format(p.sale_price) }}</td>
-      <td>{{ p.stock }}</td>
-      <td>
-        <a href="/products/edit/{{ p.id }}" class="btn btn-sm btn-outline-primary">Edit</a>
-        <form method="post" action="/products/delete/{{ p.id }}" style="display:inline" onsubmit="return confirm('Delete product?')">
-          <button class="btn btn-sm btn-outline-danger">Delete</button>
-        </form>
-      </td>
-    </tr>
-    {% else %}
-    <tr><td colspan="7">No products found.</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
+<section class="section table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Cost</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in products %}
+      <tr>
+        <td>{{ p.sku }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.category }}</td>
+        <td>{{ '%.2f'|format(p.cost_price) }}</td>
+        <td>{{ '%.2f'|format(p.sale_price) }}</td>
+        <td>{{ p.stock }}</td>
+        <td>
+          <div class="actions">
+            <a class="pill-link" href="{{ url_with_prefs('/products/edit/' + p.id|string) }}">Edit</a>
+            <form method="post" action="/products/delete/{{ p.id }}" onsubmit="return confirm('Delete product?')">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7">{{ t('products.none') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
 {% endblock %}

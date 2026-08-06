@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="section">
+  <h1>{{ t('admin.title') }}</h1>
+  <p>{{ t('admin.text') }}</p>
+  <div class="actions">
+    <a class="button-primary" href="{{ url_with_prefs('/products') }}">{{ t('admin.inventory') }}</a>
+    <a class="button-primary" href="{{ url_with_prefs('/admin/pos') }}">{{ t('admin.pos') }}</a>
+    <a class="button-primary" href="{{ url_with_prefs('/admin/reports') }}">{{ t('admin.reports') }}</a>
+  </div>
+</section>
+{% endblock %}

@@ -352,3 +352,50 @@ class TestIntegration:
         # Check final stock
         product = requests.get(f"{server}/api/products/{product_id}").json()
         assert product["stock"] == 65
+
+
+class TestMilestoneContracts:
+    """Test new baseline contract endpoints"""
+
+    def test_contracts_bootstrap(self, server):
+        response = requests.get(f"{server}/api/contracts/bootstrap")
+        assert response.status_code == 200
+        data = response.json()
+        assert "mandatory_product_fields" in data
+        assert "sale_price" in data["mandatory_product_fields"]
+
+    def test_storefront_language_toggle(self, server):
+        response = requests.get(f"{server}/?lang=en")
+        assert response.status_code == 200
+        assert "Storefront".lower() in response.text.lower()
+
+    def test_create_sales_ticket(self, server):
+        response = requests.post(
+            f"{server}/api/sales/tickets",
+            json={
+                "payment_method": "cash",
+                "lines": [
+                    {"description": "Leche Entera 1L", "quantity": 2, "unit_price": 24.0}
+                ],
+                "notes": "Demo PoS"
+            }
+        )
+        assert response.status_code == 200
+        data = response.json()
+        assert data["total_amount"] == 48.0
+        assert data["payment_method"] == "cash"
+
+    def test_create_order(self, server):
+        response = requests.post(
+            f"{server}/api/orders",
+            json={
+                "customer_name": "Cliente Demo",
+                "customer_phone": "5551234567",
+                "channel": "web",
+                "lines": [{"description": "Tomate", "quantity": 1}],
+            }
+        )
+        assert response.status_code == 200
+        data = response.json()
+        assert data["customer_name"] == "Cliente Demo"
+        assert data["status"] == "pending"
